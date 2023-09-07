@@ -37,7 +37,7 @@ php artisan vendor:publish --tag="campaign-monitor-config"
 
 Create your Statamic [forms](https://statamic.dev/forms#content) as usual. Don't forget to add the consent field to your blueprint.
 
-*Configure Mailchimp in the Control Panel:*
+*Configuration in the Control Panel:*
 
 ![control panel](https://raw.githubusercontent.com/statamic-rad-pack/campaign-monitor/main/images/config.png)
 
