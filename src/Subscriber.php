@@ -129,7 +129,7 @@ class Subscriber
                         
         $result = CampaignMonitor::subscribers($this->config->get('list_id'))->add($payload);
                 
-        if (! in_array($result->http_status, [200, 201])) {
+        if (! in_array($result->http_status_code, [200, 201])) {
             Log::error(json_encode($payload));
             Log::error(json_encode($result));
         }
