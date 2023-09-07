@@ -119,7 +119,7 @@ class Subscriber
                     }
         
                     return [
-                        'Key' => $key,
+                        'Key' => $item['key'],
                         'Value' => $fieldData,
                     ];
                 })
