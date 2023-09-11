@@ -47,19 +47,20 @@ class Subscriber
     {
         return $this->get($this->config->get('primary_email_field', 'email')) ?? '';
     }
-    
+
     private function mobile(): string
     {
         return $this->get($this->config->get('mobile_field', 'mobile')) ?? '';
     }
-    
+
     private function name(): string
     {
         return $this->get($this->config->get('name_field', 'name')) ?? '';
     }
-    
+
     public function hasConsent(): bool
     {
+
         if (! $this->config->get('check_consent', false)) {
             return true;
         }
@@ -73,7 +74,7 @@ class Subscriber
             FILTER_VALIDATE_BOOLEAN
         );
     }
-    
+
     public function hasSmsConsent(): bool
     {
         if (! $this->config->get('check_consent_sms', false)) {
@@ -104,7 +105,7 @@ class Subscriber
         if (! ($this->hasConsent() || $this->hasSmsConsent())) {
             return;
         }
-        
+
         $payload = [
             'EmailAddress' => $this->email(),
             'MobileNumber' => $this->mobile(),
@@ -113,22 +114,36 @@ class Subscriber
             'ConsentToSendSms' => $this->hasSmsConsent() ? 'Yes' : 'No',
             'Resubscribe' => true,
             'CustomFields' => collect($this->config->get('custom_fields', []))
-                ->map(function ($item, $key) {
+                ->flatMap(function ($item, $key) {
                     if (is_null($fieldData = $this->get($item['field_name']))) {
                         return [];
                     }
-        
+
+                    if (is_array($fieldData)) {
+                        $r = [];
+                        foreach ($fieldData as $data) {
+                            $r[] = [
+                                'Key' => $item['key'],
+                                'Value' => $data,
+                            ];
+                        }
+                        return $r;
+                    }
+
                     return [
-                        'Key' => $item['key'],
-                        'Value' => $fieldData,
+                        [
+                            'Key' => $item['key'],
+                            'Value' => $fieldData,
+                        ]
                     ];
                 })
                     ->filter()
+                    ->values()
                     ->all(),
         ];
-                        
+
         $result = CampaignMonitor::subscribers($this->config->get('list_id'))->add($payload);
-                
+
         if (! in_array($result->http_status_code, [200, 201])) {
             Log::error(json_encode($payload));
             Log::error(json_encode($result));
