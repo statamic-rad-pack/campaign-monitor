@@ -1,7 +1,9 @@
+<!-- statamic:hide -->
 # Manage Campaign Monitor newsletters in Statamic
 [![Latest Version](https://img.shields.io/github/v/release/statamic-rad-pack/campaign-monitor)](https://github.com/statamic-rad-pack/campaign-monitor/releases)
 
 This package provides an easy way to integrate Campaign Monitor with Statamic forms and user registrations.
+<!-- /statamic:hide -->
 
 ## Requirements
 
