@@ -27,9 +27,7 @@ class CampaignMonitorList extends Relationship
         if (! $list = CampaignMonitor::lists($id)->get()?->response ?? false) {
             return [];
         }
-        
-    \StatamicRadPack\CampaignMonitor\Subscriber::fromUser(\Statamic\Facades\User::findByEmail('ryan@thoughtcollective.com'))->subscribe();
-        
+                
         return [
             'id' => $list->ListID,
             'title' => $list->Title,
