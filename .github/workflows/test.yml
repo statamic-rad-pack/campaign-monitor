@@ -15,7 +15,7 @@ jobs:
         statamic: [^5.0]
         os: [ubuntu-latest]
         
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ubuntu-latest
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.statamic }} - ubuntu-latest
     
     steps:
       - name: Checkout code
@@ -36,8 +36,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-             composer require "laravel/framework:${{ matrix.framework }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-             composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+          composer require "laravel/framework:${{ matrix.laravel }}" "statamic/cms:${{ matrix.statamic }}" --no-interaction --no-update
+          composer install --no-interaction
 
       - name: Execute tests
         run: vendor/bin/phpunit -c phpunit.xml
