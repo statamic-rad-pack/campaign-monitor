@@ -54,5 +54,6 @@
             "description": "Campaign Monitor addon",
             "name": "Campaign Monitor"
         }
-    }
+    },
+    "minimum-stability": "alpha"
 }
