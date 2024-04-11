@@ -7,20 +7,17 @@ on:
 jobs:
   php-tests:
     runs-on: ${{ matrix.os }}
+    
     strategy:
       matrix:
+        php: [8.3, 8.2, 8.1]
+        laravel: [10.*]
+        statamic: [^4.0]
+        testbench: [8.*]
         os: [ubuntu-latest]
-        php: [8.2, 8.3]
-        laravel: [10.*, 11.*]
-        dependency-version: [prefer-lowest, prefer-stable]
-        include:
-          - laravel: 10.*
-            framework: ^10.0
-            testbench: 8.*
-          - laravel: 11.*
-            framework: ^11.0
-            testbench: 8.*
+        
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ubuntu-latest
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
