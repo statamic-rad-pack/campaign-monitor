@@ -5,6 +5,12 @@ All notable changes to `statamic-rad-pack/campaign-monitor` will be documented i
 v1.0.0 - 2023-09-13
 Initial release
 
+## v2.0.1 - 2024-06-13
+
+### 🐛 Fixed
+
+- Ensure dist assets are included.
+
 ## v1.0.1 - 2023-09-15
 
 ### 🐛 Fixed
