@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       upload_assets:
-        default: false
+        default: true
         description: 'Upload assets to release'
         type: boolean
 jobs:
