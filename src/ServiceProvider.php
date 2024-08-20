@@ -46,12 +46,12 @@ class ServiceProvider extends AddonServiceProvider
         parent::boot();
 
         Forma::add('statamic-rad-pack/campaign-monitor', ConfigController::class);
-            
+
         $this->addFormConfigFields();
 
         $this->app->booted(function () {
             $this->migrateToFormConfig();
-            
+
             $this->addFormsToNewsletterConfig();
         });
     }
@@ -86,7 +86,7 @@ class ServiceProvider extends AddonServiceProvider
 
         config(['campaign-monitor.lists' => $lists]);
     }
-    
+
     private function addFormConfigFields()
     {
         Form::appendConfigFields('*', __('Campaign Monitor Integration'), [
@@ -170,7 +170,7 @@ class ServiceProvider extends AddonServiceProvider
                                         'if' => ['check_consent' => true],
                                     ],
                                 ],
-                                
+
                                 [
                                     'handle' => 'spacer_field',
                                     'field' => [
@@ -179,7 +179,7 @@ class ServiceProvider extends AddonServiceProvider
                                         'if' => ['check_consent' => false],
                                     ],
                                 ],
-                                
+
                                 [
                                     'handle' => 'mobile_field',
                                     'field' => [
@@ -190,7 +190,7 @@ class ServiceProvider extends AddonServiceProvider
                                         'width' => 33,
                                     ],
                                 ],
-                                
+
                                 [
                                     'handle' => 'check_consent_sms',
                                     'field' => [
@@ -199,8 +199,8 @@ class ServiceProvider extends AddonServiceProvider
                                         'width' => 33,
                                         'default' => false,
                                     ],
-                                ],  
-                                
+                                ],
+
                                 [
                                     'handle' => 'consent_field_sms',
                                     'field' => [
@@ -211,8 +211,8 @@ class ServiceProvider extends AddonServiceProvider
                                         'width' => 33,
                                         'if' => ['check_consent_sms' => true],
                                     ],
-                                ],   
-                                
+                                ],
+
                                 [
                                     'handle' => 'spacer_field_sms',
                                     'field' => [
@@ -220,7 +220,7 @@ class ServiceProvider extends AddonServiceProvider
                                         'width' => 33,
                                         'if' => ['check_consent_sms' => false],
                                     ],
-                                ],                                                                                                                           
+                                ],
 
                                 [
                                     'handle' => 'custom_fields',
@@ -267,7 +267,7 @@ class ServiceProvider extends AddonServiceProvider
             ],
         ]);
     }
-    
+
     private function migrateToFormConfig()
     {
         if (! $forms = config('campaign-monitor.forms')) {

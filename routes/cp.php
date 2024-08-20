@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use StatamicRadPack\CampaignMonitor\Http\Controllers\GetFormFieldsController;
 use StatamicRadPack\CampaignMonitor\Http\Controllers\GetCustomFieldsController;
+use StatamicRadPack\CampaignMonitor\Http\Controllers\GetFormFieldsController;
 use StatamicRadPack\CampaignMonitor\Http\Controllers\GetUserFieldsController;
 
 Route::name('campaign-monitor.')->prefix('campaign-monitor')->group(function () {

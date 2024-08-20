@@ -136,7 +136,7 @@ class SubscriberFromSubmissionTest extends TestCase
 
         $this->assertTrue($consent);
     }
-    
+
     #[Test]
     public function it_gets_config_from_form()
     {

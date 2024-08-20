@@ -3,7 +3,7 @@
 return [
 
     'api_key' => env('CAMPAIGNMONITOR_API_KEY'),
-    
+
     'client_id' => env('CAMPAIGNMONITOR_CLIENT_ID'),
 
     /*
@@ -29,7 +29,7 @@ return [
         * Default: 'consent'
         */
         'consent_field' => 'consent',
-        
+
         /*
         * Set to `true` to require consent before SMS subscribing someone
         * Default: `true`
@@ -58,19 +58,19 @@ return [
             //     'field_name' => null,
             // ],
         ],
-        
+
         /*
         * Field that contains the mobile number
         * Default: 'mobile'
         */
         'mobile_field' => 'mobile',
-        
+
         /*
         * Field that contains the name
         * Default: 'name'
         */
         'name_field' => 'name',
-        
+
         /*
         * Field that contains the primary email address
         * Default: 'email'

@@ -47,12 +47,12 @@ class Subscriber
     /**
      * @param  array|Collection  $data
      */
-    public function __construct($data, array $config = null)
+    public function __construct($data, ?array $config = null)
     {
         $this->data = collect($data);
         $this->config = collect($config);
     }
-    
+
     public function config(): array
     {
         return $this->config->all();
@@ -142,6 +142,7 @@ class Subscriber
                                 'Value' => $data,
                             ];
                         }
+
                         return $r;
                     }
 
@@ -149,12 +150,12 @@ class Subscriber
                         [
                             'Key' => $item['key'],
                             'Value' => $fieldData,
-                        ]
+                        ],
                     ];
                 })
-                    ->filter()
-                    ->values()
-                    ->all(),
+                ->filter()
+                ->values()
+                ->all(),
         ];
 
         $result = CampaignMonitor::subscribers($this->config->get('list_id'))->add($payload);
