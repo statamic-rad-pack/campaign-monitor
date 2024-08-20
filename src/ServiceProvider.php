@@ -270,7 +270,6 @@ class ServiceProvider extends AddonServiceProvider
     
     private function migrateToFormConfig()
     {
-        return;
         if (! $forms = config('campaign-monitor.forms')) {
             return;
         }

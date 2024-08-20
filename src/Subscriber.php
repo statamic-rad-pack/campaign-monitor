@@ -21,7 +21,7 @@ class Subscriber
             return null;
         }
 
-        if (! $config = $form->get('mailchimp', [])) {
+        if (! $config = $form->get('campaign_monitor', [])) {
             return null;
         }
 
@@ -58,7 +58,7 @@ class Subscriber
         return $this->config->all();
     }
 
-    private function email(): string
+    public function email(): string
     {
         return $this->get($this->config->get('primary_email_field', 'email')) ?? '';
     }
