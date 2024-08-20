@@ -26,7 +26,7 @@ tabs:
                   handle: name_field
                   field:
                     display: 'Name Field'
-                    type: campaign_monitor_form_fields
+                    type: campaign_monitor_user_fields
                     max_items: 1
                     default: name
                     width: 33
@@ -40,7 +40,7 @@ tabs:
                   handle: primary_email_field
                   field:
                     display: 'Email Field'
-                    type: campaign_monitor_form_fields
+                    type: campaign_monitor_user_fields
                     max_items: 1
                     default: email
                     width: 33
@@ -55,7 +55,7 @@ tabs:
                   handle: consent_field
                   field:
                     display: 'Consent Field'
-                    type: campaign_monitor_form_fields
+                    type: campaign_monitor_user_fields
                     default: consnet
                     width: 33
                     if:
@@ -72,7 +72,7 @@ tabs:
                   handle: mobile_field
                   field:
                     display: 'Mobile Number Field'
-                    type: campaign_monitor_form_fields
+                    type: campaign_monitor_user_fields
                     default: mobile
                     width: 33
                 -
@@ -86,7 +86,7 @@ tabs:
                   handle: consent_field_sms
                   field:
                     display: 'SMS Consent Field'
-                    type: campaign_monitor_form_fields
+                    type: campaign_monitor_user_fields
                     default: consent_sms
                     width: 33
                     if:
@@ -108,7 +108,7 @@ tabs:
                         field:
                           input_type: text
                           display: Form Field
-                          type: campaign_monitor_form_fields
+                          type: campaign_monitor_user_fields
                           icon: text
                           listable: hidden
                       -
