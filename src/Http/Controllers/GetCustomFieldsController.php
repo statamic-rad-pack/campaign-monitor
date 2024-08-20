@@ -14,6 +14,7 @@ class GetCustomFieldsController extends Controller
 
         return collect($fields->response ?? [])
             ->map(fn ($mergeField) => ['id' => $mergeField->Key, 'label' => $mergeField->FieldName])
+            ->values()
             ->all();
     }
 }
