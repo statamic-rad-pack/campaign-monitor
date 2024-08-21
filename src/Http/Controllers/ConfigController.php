@@ -2,33 +2,53 @@
 
 namespace StatamicRadPack\CampaignMonitor\Http\Controllers;
 
-use Edalzell\Forma\ConfigController as BaseController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Statamic\Facades\Blueprint;
+use Statamic\Facades\YAML;
+use Statamic\Fields\Blueprint as BlueprintContract;
+use Statamic\Http\Controllers\CP\CpController;
+use StatamicRadpack\CampaignMonitor\UserConfig;
 
-class ConfigController extends BaseController
+class ConfigController extends CpController
 {
-    protected function postProcess(array $values): array
+    public function edit()
     {
-        $userConfig = Arr::get($values, 'users');
+        abort_if(Auth::user()->cant('manage campaign-monitor settings'), 403);
 
-        return array_merge(
-            $values,
-            ['users' => $userConfig[0]]
-        );
+        $values = config('campaign-monitor');
+        $values['users'] = [$values['users']];
+
+        $blueprint = $this->getBlueprint();
+
+        $fields = $blueprint->fields()->addValues($values)->preProcess();
+
+        return view('campaign-monitor::cp.config', [
+            'blueprint' => $blueprint->toPublishArray(),
+            'values' => $fields->values(),
+            'meta' => $fields->meta(),
+        ]);
     }
 
-    protected function preProcess(string $handle): array
+    public function update(Request $request)
     {
-        $config = config($handle);
+        abort_if(Auth::user()->cant('manage campaign-monitor settings'), 403);
 
-        return array_merge(
-            $config,
-            ['users' => [Arr::get($config, 'users', [])]]
-        );
+        $fields = $this->getBlueprint()->fields()->addValues($request->all());
+
+        $fields->validate();
+
+        $values = $fields->process()->values()->all();
+        $values['users'] = $values['users'][0];
+
+        UserConfig::load(Arr::only($values, ['add_new_users', 'users']))->save();
+
+        return response()->json(['message' => __('Settings updated')]);
     }
 
-    public static function cpIcon()
+    private function getBlueprint(): BlueprintContract
     {
-        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 421.08 284.91"><path d="m418.18,6.84c-5.08-7.24-15.05-9.01-22.31-3.92L2.88,278.08c2.89,4.12,7.68,6.83,13.1,6.82h.02s0,0,0,0h389.06c8.84,0,16.01-7.17,16.01-16.02V15.77c-.05-3.09-.99-6.2-2.9-8.93"/><path d="m25.21,2.9C17.96-2.18,7.98-.41,2.9,6.82.99,9.56.05,12.68,0,15.77v253.59S187.1,116.1,187.1,116.1L25.21,2.9Z"/></svg>';
+        return Blueprint::make()->setContents(YAML::file(__DIR__.'/../../../resources/blueprints/config.yaml')->parse());
     }
 }
