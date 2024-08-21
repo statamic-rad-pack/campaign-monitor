@@ -37,7 +37,11 @@ php artisan vendor:publish --tag="campaign-monitor-config"
 
 ## Usage
 
-Create your Statamic [forms](https://statamic.dev/forms#content) as usual. Don't forget to add the consent field to your blueprint.
+Create your Statamic [forms](https://statamic.dev/forms#content) as usual. When editing the form you'll see a "Campaign Monitor Integration" section where you can configure if and how that form integrates with Campaign Monitor.  
+
+Don't forget to add the consent field to your blueprint.
+
+You can also manage if new users are added a list using the dedicated settings view in the control panel.
 
 *Configuration in the Control Panel:*
 
