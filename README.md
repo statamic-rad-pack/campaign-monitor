@@ -48,6 +48,13 @@ You can also manage if new users are added a list using the dedicated settings v
 ![control panel](https://raw.githubusercontent.com/statamic-rad-pack/campaign-monitor/main/images/config.png)
 
 
+### Data storage
+
+Any user related settings are stored by default in `resources/campaign_monitor.yaml`.
+
+If you want to change this or use a different data store, you can bind `\StatamicRadPack\Mailchimp\UserConfig::class` in your app service provider. You should modify the `getSavedSettings`, `save`, and `exists` methods according to your requirements.
+
+
 ## Testing
 
 Run the tests with:
