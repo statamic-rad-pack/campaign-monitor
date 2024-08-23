@@ -306,8 +306,8 @@ class ServiceProvider extends AddonServiceProvider
         }
 
         UserConfig::load([
-            'add_new_users' => config('campaign-monitor.add_new_users'),
-            'users' => config('campaign-monitor.users'),
+            'add_new_users' => config('campaign-monitor.add_new_users', false),
+            'users' => config('campaign-monitor.users', []),
         ])->save();
 
         ConfigWriter::edit('campaign-monitor')
