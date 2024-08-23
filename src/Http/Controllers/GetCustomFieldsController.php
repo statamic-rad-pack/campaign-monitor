@@ -3,7 +3,6 @@
 namespace StatamicRadPack\CampaignMonitor\Http\Controllers;
 
 use Bashy\CampaignMonitor\Facades\CampaignMonitor;
-use Illuminate\Support\Arr;
 use Statamic\Http\Controllers\Controller;
 
 class GetCustomFieldsController extends Controller
@@ -14,6 +13,7 @@ class GetCustomFieldsController extends Controller
 
         return collect($fields->response ?? [])
             ->map(fn ($mergeField) => ['id' => $mergeField->Key, 'label' => $mergeField->FieldName])
+            ->values()
             ->all();
     }
 }

@@ -15,15 +15,25 @@ class Subscriber
 
     private Collection $config;
 
-    public static function fromSubmission(Submission $submission): self
+    public static function fromSubmission(Submission $submission): ?self
     {
-        return new self(
-            $submission->data(),
-            Arr::first(
-                config('campaign-monitor.forms', []),
-                fn (array $formConfig) => $formConfig['form'] == $submission->form()->handle()
-            )
-        );
+        if (! $form = $submission->form()) {
+            return null;
+        }
+
+        if (! $config = $form->get('campaign_monitor', [])) {
+            return null;
+        }
+
+        if (! $config['enabled'] ?? false) {
+            return null;
+        }
+
+        if (! $config = Arr::get($config, 'settings', [])) {
+            return null;
+        }
+
+        return new self($submission->data(), $config);
     }
 
     public static function fromUser(User $user): self
@@ -37,13 +47,18 @@ class Subscriber
     /**
      * @param  array|Collection  $data
      */
-    public function __construct($data, array $config = null)
+    public function __construct($data, ?array $config = null)
     {
         $this->data = collect($data);
         $this->config = collect($config);
     }
 
-    private function email(): string
+    public function config(): array
+    {
+        return $this->config->all();
+    }
+
+    public function email(): string
     {
         return $this->get($this->config->get('primary_email_field', 'email')) ?? '';
     }
@@ -127,6 +142,7 @@ class Subscriber
                                 'Value' => $data,
                             ];
                         }
+
                         return $r;
                     }
 
@@ -134,12 +150,12 @@ class Subscriber
                         [
                             'Key' => $item['key'],
                             'Value' => $fieldData,
-                        ]
+                        ],
                     ];
                 })
-                    ->filter()
-                    ->values()
-                    ->all(),
+                ->filter()
+                ->values()
+                ->all(),
         ];
 
         $result = CampaignMonitor::subscribers($this->config->get('list_id'))->add($payload);

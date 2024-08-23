@@ -42,7 +42,12 @@ export default {
 
     computed: {
         key() {
-            let matches = this.namePrefix.match(/([a-z]*?)\[(.*?)\]/);
+            let matches = this.namePrefix.match(/([a-z_]*?)\[(.*?)\]/);
+            
+            if (matches[1] == 'campaign_monitor') { // form page
+                return 'campaign_monitor.settings.list_id.0';                
+            }
+            
             return matches[0].replace('[', '.').replace(']', '.') + 'list_id.0';
         },
 
@@ -62,7 +67,8 @@ export default {
                 .get(cp_url(`/campaign-monitor/custom-fields/${this.list}`))
                 .then(response => {
                     this.fields = response.data;
-                });
+                })
+                .catch(() => { this.fields = []; });
         }
     }
 };

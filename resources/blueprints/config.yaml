@@ -1,133 +1,4 @@
 tabs:
-  forms:
-    display: 'Forms'
-    sections:
-      -
-        fields:
-          - 
-            handle: forms
-            field:
-              fields:
-                -
-                  handle: form
-                  field:
-                    display: Form
-                    type: form
-                    max_items: 1
-                    mode: select
-                    width: 33
-                -
-                  handle: list_id
-                  field:
-                    display: 'List ID'
-                    type: campaign_monitor_list
-                    mode: select
-                    max_items: 1
-                    width: 33
-                -
-                  handle: name_field
-                  field:
-                    display: 'Name Field'
-                    type: campaign_monitor_form_fields
-                    max_items: 1
-                    default: name
-                    width: 33
-                -
-                  handle: primary_email_field
-                  field:
-                    display: 'Email Field'
-                    type: campaign_monitor_form_fields
-                    max_items: 1
-                    default: email
-                    width: 33
-                -
-                  handle: check_consent
-                  field:
-                    display: 'Check Consent?'
-                    type: toggle
-                    width: 33
-                    default: false
-                -
-                  handle: consent_field
-                  field:
-                    display: 'Consent Field'
-                    type: campaign_monitor_form_fields
-                    default: consnet
-                    width: 33
-                    if:
-                      check_consent: true
-                -
-                  handle: spacer_field
-                  field:
-                    display: 'Consent Field'
-                    type: spacer
-                    width: 33
-                    if:
-                      check_consent: false
-                -
-                  handle: mobile_field
-                  field:
-                    display: 'Mobile Number Field'
-                    type: campaign_monitor_form_fields
-                    default: mobile
-                    width: 33
-                -
-                  handle: check_consent_sms
-                  field:
-                    display: 'Check Consent to SMS?'
-                    type: toggle
-                    width: 33
-                    default: false
-                -
-                  handle: consent_field_sms
-                  field:
-                    display: 'SMS Consent Field'
-                    type: campaign_monitor_form_fields
-                    default: consent_sms
-                    width: 33
-                    if:
-                      check_consent_sms: true
-                -
-                  handle: spacer_field_sms
-                  field:
-                    display: 'Consent Field'
-                    type: spacer
-                    width: 33
-                    if:
-                      check_consent_sms: false
-                -
-                  handle: custom_fields
-                  field:
-                    fields:
-                      -
-                        handle: field_name
-                        field:
-                          input_type: text
-                          display: Form Field
-                          type: campaign_monitor_form_fields
-                          icon: text
-                          listable: hidden
-                      -
-                        handle: key
-                        field:
-                          input_type: text
-                          display: 'Custom Field'
-                          type: campaign_monitor_custom_fields
-                          max_items: 1
-                          icon: text
-                          listable: hidden
-                    mode: table
-                    reorderable: true
-                    display: 'Custom Fields'
-                    type: grid
-                    icon: grid
-                    add_row: 'Add Custom Field'
-                    listable: hidden
-              display: ' '
-              type: grid
-              mode: stacked
-              add_row: 'Add Form'
-              instructions: 'Add the forms you want to process Campaign Monitor submissions for.'
   users:
     display: 'Users'
     sections: 
@@ -155,7 +26,7 @@ tabs:
                   handle: name_field
                   field:
                     display: 'Name Field'
-                    type: campaign_monitor_form_fields
+                    type: campaign_monitor_user_fields
                     max_items: 1
                     default: name
                     width: 33
@@ -169,7 +40,7 @@ tabs:
                   handle: primary_email_field
                   field:
                     display: 'Email Field'
-                    type: campaign_monitor_form_fields
+                    type: campaign_monitor_user_fields
                     max_items: 1
                     default: email
                     width: 33
@@ -184,7 +55,7 @@ tabs:
                   handle: consent_field
                   field:
                     display: 'Consent Field'
-                    type: campaign_monitor_form_fields
+                    type: campaign_monitor_user_fields
                     default: consnet
                     width: 33
                     if:
@@ -201,7 +72,7 @@ tabs:
                   handle: mobile_field
                   field:
                     display: 'Mobile Number Field'
-                    type: campaign_monitor_form_fields
+                    type: campaign_monitor_user_fields
                     default: mobile
                     width: 33
                 -
@@ -215,7 +86,7 @@ tabs:
                   handle: consent_field_sms
                   field:
                     display: 'SMS Consent Field'
-                    type: campaign_monitor_form_fields
+                    type: campaign_monitor_user_fields
                     default: consent_sms
                     width: 33
                     if:
@@ -237,7 +108,7 @@ tabs:
                         field:
                           input_type: text
                           display: Form Field
-                          type: campaign_monitor_form_fields
+                          type: campaign_monitor_user_fields
                           icon: text
                           listable: hidden
                       -
@@ -257,12 +128,12 @@ tabs:
                     add_row: 'Add Custom Field'
                     listable: hidden
               display: ' '
-              instructions: 'Add the forms you want to process Campaign Monitor submissions for.'
               type: grid
               mode: stacked
               max_rows: 1
               min_rows: 1
               reorderable: false
+              fullscreen: false
               if:
                 add_new_users: 'equals true'
   credentials:

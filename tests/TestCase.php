@@ -2,15 +2,20 @@
 
 namespace StatamicRadPack\CampaignMonitor\Tests;
 
-use Statamic\Extend\AddonTestCase;
 use Statamic\Facades\Blueprint as BlueprintFacade;
 use Statamic\Facades\YAML;
 use Statamic\Statamic;
+use Statamic\Testing\AddonTestCase;
 use StatamicRadPack\CampaignMonitor\ServiceProvider;
 
 class TestCase extends AddonTestCase
 {
     protected string $addonServiceProvider = ServiceProvider::class;
+
+    protected function getPackageProviders($app)
+    {
+        return array_merge(parent::getPackageProviders($app), [\Stillat\Proteus\WriterServiceProvider::class]);
+    }
 
     protected function resolveApplicationConfiguration($app)
     {
