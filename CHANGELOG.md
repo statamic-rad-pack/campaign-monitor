@@ -5,6 +5,12 @@ All notable changes to `statamic-rad-pack/campaign-monitor` will be documented i
 v1.0.0 - 2023-09-13
 Initial release
 
+## v2.2.0 - 2024-09-06
+
+### What's changed
+
+- Pass current color to icon for dark mode support [@ryanmitchell](https://github.com/ryanmitchell) (#11)
+
 ## v2.1.0 - 2024-08-23
 
 ### Whats changed
