@@ -5,6 +5,14 @@ All notable changes to `statamic-rad-pack/campaign-monitor` will be documented i
 v1.0.0 - 2023-09-13
 Initial release
 
+## v2.2.1 - 2024-09-16
+
+### What's Changed
+
+* Form submission returning null by @anditopping in https://github.com/statamic-rad-pack/campaign-monitor/pull/12
+
+**Full Changelog**: https://github.com/statamic-rad-pack/campaign-monitor/compare/v2.2.0...v2.2.1
+
 ## v2.2.0 - 2024-09-06
 
 ### What's changed
