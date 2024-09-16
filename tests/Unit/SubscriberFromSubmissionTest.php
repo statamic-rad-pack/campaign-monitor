@@ -143,6 +143,7 @@ class SubscriberFromSubmissionTest extends TestCase
         $settings = [
             'check_consent' => true,
             'primary_email_field' => 'email',
+            'form' => 'contact_us',
         ];
 
         $this->form->merge([
