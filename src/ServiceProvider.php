@@ -9,23 +9,12 @@ use Statamic\Facades\Form;
 use Statamic\Facades\Permission;
 use Statamic\Providers\AddonServiceProvider;
 use Statamic\Support\Arr;
-use StatamicRadPack\CampaignMonitor\Fieldtypes\CampaignMonitorCustomFields;
-use StatamicRadPack\CampaignMonitor\Fieldtypes\CampaignMonitorFormFields;
-use StatamicRadPack\CampaignMonitor\Fieldtypes\CampaignMonitorList;
-use StatamicRadPack\CampaignMonitor\Fieldtypes\CampaignMonitorUserFields;
 use StatamicRadPack\CampaignMonitor\Listeners\AddFromSubmission;
 use StatamicRadPack\CampaignMonitor\Listeners\AddFromUser;
 use Stillat\Proteus\Support\Facades\ConfigWriter;
 
 class ServiceProvider extends AddonServiceProvider
 {
-    protected $fieldtypes = [
-        CampaignMonitorCustomFields::class,
-        CampaignMonitorList::class,
-        CampaignMonitorFormFields::class,
-        CampaignMonitorUserFields::class,
-    ];
-
     protected $listen = [
         UserRegistered::class => [AddFromUser::class],
         SubmissionCreated::class => [AddFromSubmission::class],
@@ -41,10 +30,8 @@ class ServiceProvider extends AddonServiceProvider
         'hotFile' => __DIR__.'/../dist/hot',
     ];
 
-    public function boot()
+    public function bootAddon()
     {
-        parent::boot();
-
         Permission::extend(function () {
             Permission::register('manage campaign-monitor settings')
                 ->label(__('Manage Campaign Monitor Settings'));
@@ -60,12 +47,10 @@ class ServiceProvider extends AddonServiceProvider
 
         $this->addFormConfigFields();
 
-        $this->app->booted(function () {
-            $this->migrateToFormConfig();
-            $this->migrateUserToYaml();
+        $this->migrateToFormConfig();
+        $this->migrateUserToYaml();
 
-            $this->addFormsToNewsletterConfig();
-        });
+        $this->addFormsToNewsletterConfig();
     }
 
     private function addFormsToNewsletterConfig()
