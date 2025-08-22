@@ -16,7 +16,7 @@
         "bashy/laravel-campaignmonitor": "^6.0",
         "laravel/framework": "^11.0 || ^12.0",
         "pixelfear/composer-dist-plugin": "^0.1",
-        "statamic/cms": "^5.28 || ^6.0",
+        "statamic/cms": "dev-master",
         "stillat/proteus": "^4.0"
     },
     "require-dev": {

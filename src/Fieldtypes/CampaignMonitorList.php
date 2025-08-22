@@ -11,6 +11,10 @@ class CampaignMonitorList extends Relationship
     {
         $lists = CampaignMonitor::clients(config('campaign-monitor.client_id'))->get_lists();
 
+        if (! is_array($lists->response)) {
+            return [];
+        }
+
         return collect($lists->response ?? [])
             ->map(function ($list) {
                 return ['id' => $list->ListID, 'title' => $list->Name];
