@@ -5,10 +5,8 @@
     "type": "statamic-addon",
     "authors": [
         {
-            "name": "Ryan Mitchell",
-            "email": "ryan@thoughtcollective.com",
-            "homepage": "https://www.thoughtcollective.com",
-            "role": "Chief"
+            "name": "Statamic Rad Pack",
+            "homepage": "https://statamic.com/creators/rad-pack"
         }
     ],
     "require": {
