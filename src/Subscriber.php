@@ -6,6 +6,7 @@ use Bashy\CampaignMonitor\Facades\CampaignMonitor;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Statamic\Auth\User;
+use Statamic\Facades\Addon;
 use Statamic\Forms\Submission;
 use Statamic\Support\Arr;
 
@@ -42,7 +43,7 @@ class Subscriber
     {
         return new self(
             $user->data()->merge(['email' => $user->email()])->all(),
-            array_merge(config('campaign-monitor.users', []), ['form' => 'user'])
+            array_merge(Addon::get('statamic-rad-pack/campaign-monitor')->settings()->get('users'), ['form' => 'user'])
         );
     }
 

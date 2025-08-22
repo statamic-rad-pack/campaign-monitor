@@ -3,13 +3,14 @@
 namespace StatamicRadPack\CampaignMonitor\Listeners;
 
 use Statamic\Events\UserRegistered;
+use Statamic\Facades\Addon;
 use StatamicRadPack\CampaignMonitor\Subscriber;
 
 class AddFromUser
 {
     public function handle(UserRegistered $event)
     {
-        if (! config('campaign-monitor.add_new_users')) {
+        if (! Addon::get('statamic-rad-pack/campaign-monitor')->settings()->get('add_new_users')) {
             return;
         }
 
