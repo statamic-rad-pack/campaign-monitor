@@ -10,9 +10,9 @@ jobs:
     
     strategy:
       matrix:
-        php: [8.3, 8.2]
-        laravel: [10.*, 11.*]
-        statamic: [^5.0]
+        php: [8.3, 8.4]
+        laravel: [11.*, 12.*]
+        statamic: [^6.0]
         os: [ubuntu-latest]
         
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.statamic }} - ubuntu-latest
