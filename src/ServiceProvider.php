@@ -2,11 +2,14 @@
 
 namespace StatamicRadPack\CampaignMonitor;
 
+use Illuminate\Support\Facades\File;
 use Statamic\Events\SubmissionCreated;
 use Statamic\Events\UserRegistered;
+use Statamic\Facades\Addon;
 use Statamic\Facades\CP\Nav;
 use Statamic\Facades\Form;
 use Statamic\Facades\Permission;
+use Statamic\Facades\YAML;
 use Statamic\Providers\AddonServiceProvider;
 use Statamic\Support\Arr;
 use StatamicRadPack\CampaignMonitor\Listeners\AddFromSubmission;
@@ -32,23 +35,12 @@ class ServiceProvider extends AddonServiceProvider
 
     public function bootAddon()
     {
-        Permission::extend(function () {
-            Permission::register('manage campaign-monitor settings')
-                ->label(__('Manage Campaign Monitor Settings'));
-        });
-
-        Nav::extend(fn ($nav) => $nav
-            ->content(__('Campaign Monitor'))
-            ->section(__('Settings'))
-            ->can('manage campaign-monitor settings')
-            ->route('campaign-monitor.config.edit')
-            ->icon('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 421.08 284.91"><path fill="currentColor" d="m418.18,6.84c-5.08-7.24-15.05-9.01-22.31-3.92L2.88,278.08c2.89,4.12,7.68,6.83,13.1,6.82h.02s0,0,0,0h389.06c8.84,0,16.01-7.17,16.01-16.02V15.77c-.05-3.09-.99-6.2-2.9-8.93"/><path d="m25.21,2.9C17.96-2.18,7.98-.41,2.9,6.82.99,9.56.05,12.68,0,15.77v253.59S187.1,116.1,187.1,116.1L25.21,2.9Z"/></svg>')
-        );
+        $this->registerSettingsBlueprint(YAML::file(__DIR__.'/../resources/blueprints/config.yaml')->parse());
 
         $this->addFormConfigFields();
 
         $this->migrateToFormConfig();
-        $this->migrateUserToYaml();
+        $this->migrateUserToSettings();
 
         $this->addFormsToNewsletterConfig();
     }
@@ -79,9 +71,10 @@ class ServiceProvider extends AddonServiceProvider
             })
             ->all();
 
-        $lists['user'] = ['id' => config('campaign-monitor.users.list_id')];
+        $settings = Addon::get('statamic-rad-pack/campaign-monitor')->settings();
+        $lists['user'] = ['id' => $settings->get('users.list_id')];
 
-        config(['campaign-monitor.lists' => $lists]);
+        $settings->set('lists', $lists);
     }
 
     private function addFormConfigFields()
@@ -278,26 +271,19 @@ class ServiceProvider extends AddonServiceProvider
         ConfigWriter::edit('campaign-monitor')->remove('forms')->save();
     }
 
-    private function migrateUserToYaml()
+    private function migrateUserToSettings()
     {
         $config = UserConfig::load();
 
         if ($config->exists()) {
             $config = $config->config();
-            config(['campaign-monitor.add_new_users' => $config['add_new_users'] ?? false]);
-            config(['campaign-monitor.users' => $config['users'] ?? []]);
 
-            return;
+            $settings = Addon::get('statamic-rad-pack/campaign-monitor')->settings();
+            $settings->set('add_new_users', $config['add_new_users']);
+            $settings->set('users', [$config['users']]);
+            $settings->save();
+
+            File::delete(resource_path('campaign_monitor.yaml'));
         }
-
-        UserConfig::load([
-            'add_new_users' => config('campaign-monitor.add_new_users', false),
-            'users' => config('campaign-monitor.users', []),
-        ])->save();
-
-        ConfigWriter::edit('campaign-monitor')
-            ->remove('add_new_users')
-            ->remove('users')
-            ->save();
     }
 }

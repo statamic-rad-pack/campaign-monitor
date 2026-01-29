@@ -1,26 +1,31 @@
 <template>
     <div class="mailchimp-merge-fields-fieldtype-wrapper">
-        <small class="help-block text-grey-60" v-if="!list">{{ __('Select list') }}</small>
+        <ui-description v-if="!list">{{ __('Select list ') }}</ui-description>
 
-        <v-select
-            append-to-body
+        <ui-combobox
             v-if="showFieldtype && list"
+            class="w-full"
+            clearable="true"
+            :label="__('Choose')"
             v-model="selected"
-            :clearable="true"
             :options="fields"
-            :reduce="(option) => option.id"
-            :searchable="true"
-            @input="$emit('input', $event)"
+            optionValue="id"
+            searchable="true"
         />
     </div>
 </template>
 
 <script>
+import { FieldtypeMixin as Fieldtype } from '@statamic/cms';
+import { publishContextKey } from '@statamic/cms/ui';
+
 export default {
 
     mixins: [Fieldtype],
 
-    inject: ['storeName'],
+    inject: {
+        publishContext: { from: publishContextKey },
+    },
 
     data() {
         return {
@@ -42,17 +47,11 @@ export default {
 
     computed: {
         key() {
-            let matches = this.namePrefix.match(/([a-z_]*?)\[(.*?)\]/);
-            
-            if (matches[1] == 'campaign_monitor') { // form page
-                return 'campaign_monitor.settings.list_id.0';                
-            }
-            
-            return matches[0].replace('[', '.').replace(']', '.') + 'list_id.0';
+            return 'campaign_monitor.settings.audience_id.0';
         },
 
         list() {
-            return data_get(this.$store.state.publish[this.storeName].values, this.key)
+            return this.publishContext.values.value[this.key] ?? '';
         },
     },
 
@@ -63,6 +62,11 @@ export default {
 
     methods: {
         refreshFields() {
+            if (! this.form) {
+                this.list = [];
+                return;
+            }
+
             this.$axios
                 .get(cp_url(`/campaign-monitor/custom-fields/${this.list}`))
                 .then(response => {
@@ -70,6 +74,12 @@ export default {
                 })
                 .catch(() => { this.fields = []; });
         }
+    },
+
+    watch: {
+      selected(selected) {
+        this.update(selected);
+      }
     }
 };
 </script>
