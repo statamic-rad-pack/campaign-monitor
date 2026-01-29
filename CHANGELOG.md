@@ -5,6 +5,10 @@ All notable changes to `statamic-rad-pack/campaign-monitor` will be documented i
 v1.0.0 - 2023-09-13
 Initial release
 
+## v3.0.0 - 2026-01-29
+
+Statamic v6 support
+
 ## v2.3.0 - 2024-10-09
 
 ### 🧰 Maintenance
