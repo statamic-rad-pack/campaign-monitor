@@ -86,6 +86,7 @@ class ServiceProvider extends AddonServiceProvider
                 'display' => ' ',
                 'fullscreen' => false,
                 'border' => false,
+                'full_width_setting' => true,
                 'fields' => [
                     [
                         'handle' => 'enabled',
@@ -93,6 +94,7 @@ class ServiceProvider extends AddonServiceProvider
                             'type' => 'toggle',
                             'display' => __('Enabled'),
                             'width' => 100,
+                            'full_width_setting' => true,
                         ],
                     ],
 
@@ -104,6 +106,7 @@ class ServiceProvider extends AddonServiceProvider
                             'width' => 100,
                             'fullscreen' => false,
                             'show_when' => ['enabled' => true],
+                            'full_width_setting' => true,
                             'fields' => [
 
                                 [
@@ -113,7 +116,7 @@ class ServiceProvider extends AddonServiceProvider
                                         'max_items' => 1,
                                         'mode' => 'select',
                                         'display' => __('List ID'),
-                                        'width' => 33,
+                                        'width' => 50,
                                     ],
                                 ],
 
@@ -124,7 +127,7 @@ class ServiceProvider extends AddonServiceProvider
                                         'max_items' => 1,
                                         'default' => 'name',
                                         'display' => __('Name Field'),
-                                        'width' => 33,
+                                        'width' => 50,
                                     ],
                                 ],
 
@@ -135,7 +138,18 @@ class ServiceProvider extends AddonServiceProvider
                                         'max_items' => 1,
                                         'default' => 'email',
                                         'display' => __('Email Field'),
-                                        'width' => 33,
+                                        'width' => 50,
+                                    ],
+                                ],
+
+                                [
+                                    'handle' => 'mobile_field',
+                                    'field' => [
+                                        'type' => 'campaign_monitor_form_fields',
+                                        'default' => 'mobile',
+                                        'max_items' => 1,
+                                        'display' => __('Mobile Number Field'),
+                                        'width' => 50,
                                     ],
                                 ],
 
@@ -144,7 +158,7 @@ class ServiceProvider extends AddonServiceProvider
                                     'field' => [
                                         'type' => 'toggle',
                                         'display' => __('Check Consent?'),
-                                        'width' => 33,
+                                        'width' => 50,
                                         'default' => false,
                                     ],
                                 ],
@@ -156,7 +170,7 @@ class ServiceProvider extends AddonServiceProvider
                                         'default' => 'consent',
                                         'max_items' => 1,
                                         'display' => __('Consent Field'),
-                                        'width' => 33,
+                                        'width' => 50,
                                         'if' => ['check_consent' => true],
                                     ],
                                 ],
@@ -165,19 +179,8 @@ class ServiceProvider extends AddonServiceProvider
                                     'handle' => 'spacer_field',
                                     'field' => [
                                         'type' => 'spacer',
-                                        'width' => 33,
+                                        'width' => 50,
                                         'if' => ['check_consent' => false],
-                                    ],
-                                ],
-
-                                [
-                                    'handle' => 'mobile_field',
-                                    'field' => [
-                                        'type' => 'campaign_monitor_form_fields',
-                                        'default' => 'mobile',
-                                        'max_items' => 1,
-                                        'display' => __('Mobile Number Field'),
-                                        'width' => 33,
                                     ],
                                 ],
 
@@ -186,7 +189,7 @@ class ServiceProvider extends AddonServiceProvider
                                     'field' => [
                                         'type' => 'toggle',
                                         'display' => __('Check Consent to SMS?'),
-                                        'width' => 33,
+                                        'width' => 50,
                                         'default' => false,
                                     ],
                                 ],
@@ -198,7 +201,7 @@ class ServiceProvider extends AddonServiceProvider
                                         'default' => 'consent_sms',
                                         'max_items' => 1,
                                         'display' => __('SMS Consent Field'),
-                                        'width' => 33,
+                                        'width' => 50,
                                         'if' => ['check_consent_sms' => true],
                                     ],
                                 ],
@@ -207,7 +210,7 @@ class ServiceProvider extends AddonServiceProvider
                                     'handle' => 'spacer_field_sms',
                                     'field' => [
                                         'type' => 'spacer',
-                                        'width' => 33,
+                                        'width' => 50,
                                         'if' => ['check_consent_sms' => false],
                                     ],
                                 ],
@@ -221,6 +224,7 @@ class ServiceProvider extends AddonServiceProvider
                                         'listable' => 'hidden',
                                         'display' => __('Custom Fields'),
                                         'width' => 100,
+                                        'full_width_setting' => true,
                                         'add_row' => __('Add Custom Field'),
                                         'fields' => [
 
