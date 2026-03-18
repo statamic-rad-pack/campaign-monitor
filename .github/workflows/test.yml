@@ -7,16 +7,16 @@ on:
 jobs:
   php-tests:
     runs-on: ${{ matrix.os }}
-    
+
     strategy:
       matrix:
-        php: [8.3, 8.4]
-        laravel: [12.*]
+        php: [8.3, 8.4, 8.5]
+        laravel: [12.*, 13.*]
         statamic: [^6.0]
         os: [ubuntu-latest]
-        
+
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.statamic }} - ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
