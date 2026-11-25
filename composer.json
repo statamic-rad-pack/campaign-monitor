@@ -12,7 +12,6 @@
     "require": {
         "php": "^8.3",
         "bashy/laravel-campaignmonitor": "^6.0",
-        "pixelfear/composer-dist-plugin": "^0.1",
         "statamic/cms": "^6.0",
         "stillat/proteus": "^4.0"
     },
@@ -34,16 +33,7 @@
             "StatamicRadPack\\CampaignMonitor\\Tests\\": "tests"
         }
     },
-    "config": {
-        "allow-plugins": {
-            "pixelfear/composer-dist-plugin": true
-        }
-    },
     "extra": {
-        "download-dist": {
-            "path": "dist",
-            "url": "https://github.com/statamic-rad-pack/campaign-monitor/releases/download/{$version}/dist.tar.gz"
-        },
         "laravel": {
             "providers": [
                 "StatamicRadPack\\CampaignMonitor\\ServiceProvider"
